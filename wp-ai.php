@@ -5,7 +5,7 @@
      为了安全，请一定要修改文件名，或者密码，最好两者都修改。否则别人从 aibrandinghub.com 看到后，可以直接在你的站点发布文章了。
 	 如果修改了文件名，在添加 Publisher 的时候，使用 https://www.yourdomain.com/wp-ai.php
 */
-$access_token = 'aibrandinghub'; // 请修改为你的密码
+$access_token = 'aibrandinghub.com'; // 请修改为你的密码
 $auto_cate = true; // 是否自动建立分类 true | false
 $post_author = 'aibrandinghub'; // 发布文章的用户名，必需是已注册用户
 //$save    = "save";//发布到草稿箱，不发布到前台，你审核后可以发布
