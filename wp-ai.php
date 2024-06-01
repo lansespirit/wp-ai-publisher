@@ -1,17 +1,22 @@
 <?php
 /*
-     WordPress免登录发布接口
-     把文件放到WordPress安装目录，和wp-config.php相同路径。
-     为了安全，请一定要修改文件名，或者密码，最好两者都修改。否则别人从 aibrandinghub.com 看到后，可以直接在你的站点发布文章了。
-	 如果修改了文件名，在添加 Publisher 的时候，使用 https://www.yourdomain.com/wp-ai.php
+	WordPress login-free publishing interface
+	Place the file in your WordPress installation directory, in the same path as wp-config.php.
+	In order to be safe, please make sure to change the file name, or password, it is better to change both. Otherwise, people can see it from aibrandinghub.com and publish articles on your site directly.
+	If you change the filename, use https://www.yourdomain.com/your-file-name.php when you add Publisher.
+
+	WordPress免登录发布接口
+	把文件放到WordPress安装目录，和wp-config.php相同路径。
+	为了安全，请一定要修改文件名，或者密码，最好两者都修改。否则别人从 aibrandinghub.com 看到后，可以直接在你的站点发布文章了。
+	如果修改了文件名，在添加 Publisher 的时候，使用 https://www.yourdomain.com/your-file-name.php
 */
-$access_token = 'aibrandinghub.com'; // 请修改为你的密码
-$auto_cate = true; // 是否自动建立分类 true | false
-$post_author = 'aibrandinghub'; // 发布文章的用户名，必需是已注册用户
-//$save    = "save";//发布到草稿箱，不发布到前台，你审核后可以发布
-$post_status = 'publish'; // 发布文章的状态 "publish"：立即发布，
-$next_time = false; // 随机时间发布，每篇帖子的间隔秒数；如果设置此项，提交的日期将会失效
-$post_exists = true; // 是否判断标题重复 true | false
+$access_token = 'aibrandinghub.com'; // Please change to your own password, 修改成你的密钥
+$auto_cate = true; // Whether or not categories are automatically created 是否自动建立分类 true | false
+$post_author = 'aibrandinghub'; // The user name for posting articles must be a registered user. 发布文章的用户名，必需是已注册用户
+//$save    = "save"; // Post to the drafts folder, not to the frontend, you can post after you review it发布到草稿箱，不发布到前台，你审核后可以发布
+$post_status = 'publish'; // The status of the published article “publish”: published immediately 发布文章的状态 "publish"：立即发布，
+$next_time = false; // Random time posting, number of seconds between each post; if this is set, the date of submission will be invalidated 随机时间发布，每篇帖子的间隔秒数；如果设置此项，提交的日期将会失效
+$post_exists = true; // Whether to judge the title duplication 是否判断标题重复 true | false
 
 @$comment_users = $_POST['post_author']; // 本接口支持回复，可以设置回复的用户名，如果没有，可以从这些默认用户中选择，多个用户之间使用|||分开，高级功能，不会用的不要修改
 
@@ -123,7 +128,7 @@ $post_info = array(
 	'post_name' => trim($post_name),
 	'post_date_gmt' => get_gmt_from_date(gmdate('Y-m-d H:i:s', $post_time + ( get_option( 'gmt_offset' ) * 3600 ))),
 	'post_date' => gmdate('Y-m-d H:i:s', $post_time + ( get_option( 'gmt_offset' ) * 3600 )), 
-	'tags_input' => array_unique(array_filter(explode('|||', preg_replace("/[^a-zA-Z\s\|]+/", "", $tags)))),
+	'tags_input' => array_unique(array_filter(explode(', ', preg_replace("/[^a-zA-Z\s\|]+/", "", $tags)))),
 );
 
 $pid = wp_insert_post($post_info); 
