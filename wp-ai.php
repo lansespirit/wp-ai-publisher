@@ -128,7 +128,7 @@ $post_info = array(
 	'post_name' => trim($post_name),
 	'post_date_gmt' => get_gmt_from_date(gmdate('Y-m-d H:i:s', $post_time + ( get_option( 'gmt_offset' ) * 3600 ))),
 	'post_date' => gmdate('Y-m-d H:i:s', $post_time + ( get_option( 'gmt_offset' ) * 3600 )), 
-	'tags_input' => array_unique(array_filter(explode(', ', preg_replace("/[^a-zA-Z\s\|]+/", "", $tags)))),
+	'tags_input' => array_unique(array_filter(explode(', ', preg_replace("/[^a-zA-Z\s\|,]+/", "", $tags)))),
 );
 
 $pid = wp_insert_post($post_info); 
